@@ -1,0 +1,123 @@
+html, #app {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  height: 100%;
+  position: relative;
+  background-image: url('../image/wall2.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#todolist{
+  height: 100%;
+}
+#toolbar {
+  position: relative;
+  float: left;
+  width: 80px;
+  height: 100%;
+  background-color: #78675A;
+  color: #fff;
+  padding: 35px 25px 25px 25px;
+}
+#toolbar .logout {
+  position: absolute;
+  bottom: 0px;
+  left: 27px;
+}
+
+#notes-list {
+  float: left;
+  width: 300px;
+  height: 100%;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400;
+}
+
+#list-header {
+  padding: 5px 25px 25px 25px;
+}
+
+#list-header h2 {
+  font-weight: 300;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 22px;
+  padding-bottom: 8px;
+}
+
+#notes-list .container {
+  height: calc(100% - 137px);
+  max-height: calc(100% - 137px);
+  overflow: auto;
+  width: 100%;
+  padding: 0;
+}
+
+#notes-list .container .list-group-item {
+  border: 0;
+  border-radius: 0;
+  padding: 10px 5px 10px 15px;
+  height: 40px;
+}
+
+.list-group-item-heading {
+  font-weight: 300;
+  font-size: 15px;
+}
+.list-group-item-body {
+  position: relative;
+  border-bottom:2px solid #f8f1f1
+}
+.list-group-item-body .action-icon{
+  position: absolute;
+  z-index: 1000;
+  top: 10px;
+  right:2px;
+  font-size: 17px;
+  cursor: pointer;
+}
+.list-group-item-body .action-icon i{
+  float: left;
+  margin-right: 4px;
+}
+
+#note-editor {
+  height: 100%;
+  margin-left: 380px;
+  background-color: #FBF7ED;
+}
+
+#note-editor textarea {
+  height: 100%;
+  border: 0;
+  background-color: #FBF7ED;
+  border-radius: 0;
+}
+
+#toolbar i {
+  font-size: 30px;
+  margin-bottom: 35px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.5s ease;
+}
+
+#toolbar i:hover {
+  opacity: 1;
+}
+
+.starred {
+  color: #F7AE4F;
+}
+.ql-toolbar {
+  height: 40px;
+}
+.ql-container.ql-snow {
+  border: none;
+  height: 703px;
+}
