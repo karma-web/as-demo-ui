@@ -8,11 +8,11 @@
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
+# serve with hot reload at localhost:8088
 npm run dev
 
 ```
-##项目介绍
+## 项目介绍
 ```
 这是一个便签的全栈Demo，此demo为UI部分。使用了vue2，iview，axios，vuex
 ```
