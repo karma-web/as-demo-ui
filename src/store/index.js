@@ -15,21 +15,21 @@ const state = {
 }
 
 const actions = {
-  getUserInfo ({ commit },userInfo) {
+  getUserInfo ({ commit },userInfo) { //获取用户信息
     commit(types.GET_USER_INFO,userInfo)
   },
-  async addNote ({dispatch, commit ,state}) {
+  async addNote ({dispatch, commit ,state}) { //创建一条便签
     const newNote = {
       text: '新便签',
       favorite: 0,
       id:state.user_id
     }
-    let data = await fetch._create(newNote)
+    await fetch._create(newNote)
     await dispatch('getAllNotes',state.user_id)
-    commit(types.ADD_NOTE,data)
+    commit(types.SET_ACTIVE_NOTE,state.notes[0]) //选中当前创建的便签
   },
 
-  async deleteNote ({dispatch, commit,state },data) {
+  async deleteNote ({dispatch, commit,state },data) { //删除便签
     try {
       await fetch._delete(state.user_id,data.id)
       await dispatch('getAllNotes',state.user_id)
@@ -38,27 +38,26 @@ const actions = {
 
     }
   },
-
-  setActiveNote ({ commit }, note) {
+  setActiveNote ({ commit }, note) { //设置当前便签的引用
     commit(types.SET_ACTIVE_NOTE, note)
   },
 
-  async toggleFavorite ({dispatch, commit,state },data) {
+  async toggleFavorite ({dispatch, commit,state },data) { //收藏、取消收藏
+    data.favorite = data.favorite=='0'?'1':'0'
     await fetch._update(state.user_id,data.id,data)
     await dispatch('getAllNotes',data.user_id)
   },
 
-  async getAllNotes ({ commit,state }) {
+  async getAllNotes ({ commit,state }) { //获取列表
     let resData = await fetch._getAllNotes(state.user_id)
     commit(types.GET_ALL_NOTES,resData)
   },
-  async setInitialNote ({ dispatch,commit,state}) {
+  async setInitialNote ({ dispatch,commit,state}) { //登录初始化
     await dispatch('getAllNotes',state.user_id)
-    commit(types.SET_INITIAL_NOTE)
+    commit(types.SET_ACTIVE_NOTE,state.notes[0])
   },
-  async updateText ({ commit,state },data) {
-    await fetch._update(state.user_id,data.id,data)
-    commit(types.UPDATE_TEXT)
+  updateText ({ commit,state },data) { //更新内容
+    fetch._update(state.user_id,data.id,data)
   }
 }
 
@@ -72,32 +71,19 @@ const mutations = {
       state.user_name = ''
     }
   },
-  [types.ADD_NOTE] (state,newNote) {
-    state.activeNote = newNote
-  },
 
   [types.DELETE_NOTE] (state,data) {
-    if(data.id==state.activeNote.id){
-      state.activeNote = state.notes[0]
+    if(data.id==state.activeNote.id){ //如果删除了当前选中项，选中列表第一个
+      state.activeNote = state.notes[0] || {}
     }
   },
 
-  [types.TOGGLE_FAVORITE] (state) {
-
+  [types.SET_ACTIVE_NOTE] (state, note) { //设置选中项
+    state.activeNote = note || {}
   },
 
-  [types.SET_ACTIVE_NOTE] (state, note) {
-    state.activeNote = note
-  },
-
-  [types.GET_ALL_NOTES] (state,resData) {
+  [types.GET_ALL_NOTES] (state,resData) { //列表数据
     state.notes = resData
-  },
-  [types.SET_INITIAL_NOTE] (state) {
-    state.activeNote = state.notes[0] || {}
-  },
-  [types.UPDATE_TEXT] (state) {
-
   },
 }
 

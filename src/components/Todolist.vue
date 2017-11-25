@@ -76,7 +76,7 @@
       return {
         timer:'',
         show: 'all',
-        editorOption: {
+        editorOption: { //编辑器配置
           modules: {
             toolbar: [
               [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
@@ -96,7 +96,7 @@
         'user_id',
         'user_name'
       ]),
-      filteredNotes () {
+      filteredNotes () { //过滤收藏
         if (this.show === 'all'){
           return this.notes
         } else if (this.show === 'favorites') {
@@ -105,10 +105,10 @@
       }
     },
     mounted(){
-      this.setInitialNote()
+      this.setInitialNote() //获取列表选中第一项
     },
     watch: {
-      activeNote (val, old) {
+      activeNote (val, old) { //选中新的便签时，清除定时器，并保存上一个便签
         window.clearInterval(this.timer)
         this.updateText(old)
       }
@@ -128,11 +128,11 @@
         sessionStorage.setItem('demo-token',null); // 将token清空
         this.$router.push('./')
       },
-      onEditorBlur(){
+      onEditorBlur(){ //脱离编辑状态后，清除定时器并保存当前便签
         window.clearInterval(this.timer)
         this.updateText(this.activeNote)
       },
-      onEditorFocus(data){
+      onEditorFocus(data){ //如果是编辑状态，设置定时器每五秒钟检查一次内容更新，并保存
         let _this = this
         let currentNote = clone(data)
          this.timer = window.setInterval(function(){

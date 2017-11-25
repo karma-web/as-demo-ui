@@ -30,19 +30,19 @@ export function fetch (url, method, params) {
   })
 }
 
-const _getAllNotes = function (user_id) {
+const _getAllNotes = function (user_id) { //获取列表所有数据
   return fetch('/api/todolist/'+user_id)
 }
-const _login = function (data) {
+const _login = function (data) { //登录
   return fetch('/auth/user','post',data)
 }
-const _create = function (data) {
+const _create = function (data) { //创建便签
   return fetch('/api/todolist','post',data)
 }
-const _delete = function (user_id,id) {
+const _delete = function (user_id,id) { //删除便签
   return fetch('/api/todolist/'+user_id+'/'+id,'delete')
 }
-const _update = function (user_id,id,data) {
+const _update = function (user_id,id,data) { //更新便签
   return fetch('/api/todolist/'+user_id+'/'+id,'put',data)
 }
 export default {
